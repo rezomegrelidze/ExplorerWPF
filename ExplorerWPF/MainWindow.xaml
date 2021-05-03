@@ -1,0 +1,29 @@
+﻿<Window x:Class="ExplorerWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExplorerWPF"
+        mc:Ignorable="d"
+        Title="File Search" Height="450" Width="416">
+    <Window.Resources>
+        <local:FileSearchViewModel x:Key="FileSearchViewModel"/>
+    </Window.Resources>
+    <StackPanel DataContext="{StaticResource FileSearchViewModel}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Folder Path" Margin="5"/>
+            <TextBox Text="{Binding SelectedFolder,Mode=TwoWay}" MinWidth="300" Margin="5"/>
+            <Button Content="..." Margin="5" Command="{Binding SelectFolderDialog}"></Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox MinWidth="300" Margin="5" Text="{Binding SearchText}"/>
+            <Button Margin="5" Content="Search" Command="{Binding Search}"/>
+        </StackPanel>
+        <ScrollViewer Margin="5" HorizontalAlignment="Center">
+            <ListView ItemsSource="{Binding SearchResults}"
+                     MinWidth="350" Height="200"/>
+        </ScrollViewer>
+
+        <ProgressBar Value="{Binding ProgressBarValue}" MinWidth="350" MinHeight="30" Margin="5" />
+    </StackPanel>
+</Window>
